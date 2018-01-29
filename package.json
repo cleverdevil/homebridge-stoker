@@ -1,0 +1,23 @@
+{
+  "name": "homebridge-stoker",
+  "version": "1.0.0",
+  "description": "Stoker BBQ controller plugin for homebridge: https://github.com/nfarina/homebridge",
+  "license": "MIT",
+  "keywords": [
+    "homebridge-plugin"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/cleverdevil/homebridge-stoker.git"
+  },
+  "bugs": {
+    "url": "http://github.com/cleverdevil/homebridge-stoker/issues"
+  },
+  "engines": {
+    "node": ">=0.12.0",
+    "homebridge": ">=0.2.0"
+  },
+  "dependencies": {
+    "request": "^2.65.0"
+  }
+}
