@@ -2,7 +2,10 @@
 [![npm](https://img.shields.io/npm/v/homebridge-stoker.svg)](https://www.npmjs.com/package/homebridge-stoker)
 [![npm](https://img.shields.io/npm/dt/homebridge-stoker.svg)](https://www.npmjs.com/package/homebridge-stoker)
 
-Put description here.
+A plugin for Homebridge to bring the [Stoker BBQ
+Controller](https://rocksbarbque.com) into HomeKit. Each temperature sensor will
+get its own Temperature Sensor and Occupancy Sensor (for reaching target temp),
+and a Occupancy Sensor will be created for each blower.
 
 ## Installation
 
@@ -22,9 +25,10 @@ The plugin uses the following config values:
 
 Variable | Description
 -------- | -----------
-`accessory` | Must be `Stoker`
-`name` | Whatever you want the accessory to be named in HomeKit
-`stoker_host` | The hostname / IP address of your Stoker.
+`accessory` | Must be "Stoker".
+`name` | Whatever you want the accessory to be named in HomeKit.
+`stoker_address` | The hostname / IP address of your Stoker.
+`polling_interval` | How many seconds between polling the Stoker for updates.
 
 Typical config example:
 ```json
@@ -32,7 +36,9 @@ Typical config example:
   "accessories": [
     {
       "accessory": "Stoker",
-      "name": "Stoker"
+      "name": "Stoker",
+      "stoker_address": "bbq.lacour.local",
+      "polling_interval": 5
     }
   ]
 }
