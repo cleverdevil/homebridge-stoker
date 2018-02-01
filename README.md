@@ -7,6 +7,9 @@ Controller](https://rocksbarbque.com) into HomeKit. Each temperature sensor will
 get its own Temperature Sensor and Occupancy Sensor (for reaching target temp),
 and a Occupancy Sensor will be created for each blower.
 
+**WARNING: This code is very much in-progress and hasn't been tested at all
+yet.**
+
 ## Installation
 
 You install the plugin the same way you installed Homebridge - as a global NPM
