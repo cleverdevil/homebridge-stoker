@@ -50,17 +50,11 @@ Stoker.prototype.init = function(callback) {
             // create a temperature sensor service for each temperature sensor
             this.log("Creating TemperatureSensor: " + sensorData.name);
             this.sensors[sensorData.name] = new Service.TemperatureSensor(sensorData.name);
-            this.sensors[sensorData.name]
-                .getCharacteristic(Characteristic.CurrentTemperature)
-                .on('get', this.getState.bind(this));
             
             // create a "target" occupancy sensor for when the temperature sensor reaches
             // its target temperature
             this.log("Creating OccupancySensor (target): " + sensorData.name);
             this.targets[sensorData.name] = new Service.OccupancySensor(sensorData.name);
-            this.targets[sensorData.name]
-                .getCharacteristic(Characteristic.OccupancyDetected)
-                .on('get', this.getState.bind(this));
         }.bind(this));
         
         // loop through the blowers
@@ -68,9 +62,6 @@ Stoker.prototype.init = function(callback) {
             // create a blower occupancy sensor for when the blower is engaged
             this.log("Creating OccupancySensor (blower): " + blowerData.name);
             this.blowers[blowerData.name] = new Service.OccupancySensor(blowerData.name);
-            this.blowers[blowerData.name]
-                .getCharacteristic(Characteristic.OccupancyDetected)
-                .on('get', this.getState.bind(this));
         }.bind(this));
 
         callback();
