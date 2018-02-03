@@ -1,14 +1,9 @@
 # Homebridge Plugin for Stoker BBQ Controller 
-[![npm](https://img.shields.io/npm/v/homebridge-stoker.svg)](https://www.npmjs.com/package/homebridge-stoker)
-[![npm](https://img.shields.io/npm/dt/homebridge-stoker.svg)](https://www.npmjs.com/package/homebridge-stoker)
 
 A plugin for Homebridge to bring the [Stoker BBQ
 Controller](https://rocksbarbque.com) into HomeKit. Each temperature sensor will
 get its own Temperature Sensor and Occupancy Sensor (for reaching target temp),
 and a Occupancy Sensor will be created for each blower.
-
-**WARNING: This code is very much in-progress and hasn't been tested at all
-yet.**
 
 ## Installation
 
