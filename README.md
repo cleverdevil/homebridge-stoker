@@ -32,6 +32,8 @@ Variable | Description
 `name` | Whatever you want the accessory to be named in HomeKit.
 `stoker_address` | The hostname / IP address of your Stoker.
 `polling_interval` | How many seconds between polling the Stoker for updates.
+`sensors` | A list of objects with a "name" property, one for each temp sensor.
+`sensors` | A list of objects with a "name" property, one for each blower.
 
 Typical config example:
 ```json
@@ -41,7 +43,14 @@ Typical config example:
       "accessory": "Stoker",
       "name": "Stoker",
       "stoker_address": "bbq.lacour.local",
-      "polling_interval": 5
+      "polling_interval": 5,
+      "sensors": [
+        { "name": "Meat" },
+        { "name": "Cooker" }
+      ],
+      "blowers": [
+        { "name": "Blower" }
+      ]
     }
   ]
 }
