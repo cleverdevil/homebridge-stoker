@@ -41,7 +41,7 @@ Stoker.prototype.init = function(sensorsData, blowersData) {
         this.sensors[sensorData.name] = new Service.TemperatureSensor(sensorData.name, sensorData.name);
         this.sensors[sensorData.name]
             .getCharacteristic(Characteristic.CurrentTemperature)
-            .setProps({ minValue: 0, maxValue: 400 });
+            .setProps({ minValue: 0, maxValue: 1200 });
         
         // create a "target" occupancy sensor for when the temperature sensor reaches
         // its target temperature
