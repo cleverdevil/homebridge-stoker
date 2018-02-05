@@ -1,9 +1,10 @@
 var request = require("request");
-var Service, Characteristic;
+var Service, Characteristic, HAPServer;
 
 module.exports = function (homebridge) {
     Service = homebridge.hap.Service;
     Characteristic = homebridge.hap.Characteristic;
+    HAPServer = homebridge.hap.HAPServer;
 
     homebridge.registerAccessory("homebridge-stoker", "Stoker", Stoker);
 }
@@ -38,7 +39,10 @@ Stoker.prototype.init = function(sensorsData, blowersData) {
         // create a temperature sensor service for each temperature sensor
         this.log("Creating TemperatureSensor: " + sensorData.name);
         this.sensors[sensorData.name] = new Service.TemperatureSensor(sensorData.name, sensorData.name);
-            
+        this.sensors[sensorData.name]
+            .getCharacteristic(Characteristic.CurrentTemperature)
+            .setProps({ minValue: 0, maxValue: 400 });
+        
         // create a "target" occupancy sensor for when the temperature sensor reaches
         // its target temperature
         this.log("Creating OccupancySensor (target): " + sensorData.name);
@@ -74,16 +78,24 @@ Stoker.prototype.getState = function(callback) {
             var statusCode = response ? response.statusCode : 1;
             this.log("Error getting state. Stoker may be inactive."); 
             
+            var error = new Error(HAPServer.Status.SERVICE_COMMUNICATION_FAILURE);
+
+            Object.keys(this.sensors).forEach(function(sensorName) {
+                this.sensors[sensorName]
+                    .getCharacteristic(Characteristic.CurrentTemperature)
+                    .updateValue(error);
+            }.bind(this));
+
             Object.keys(this.targets).forEach(function(targetName) {
                 this.targets[targetName]
                     .getCharacteristic(Characteristic.OccupancyDetected)
-                    .updateValue(false);
+                    .updateValue(error);
             }.bind(this));
 
             Object.keys(this.blowers).forEach(function(blowerName) {
                 this.blowers[blowerName]
                     .getCharacteristic(Characteristic.OccupancyDetected)
-                    .updateValue(false);
+                    .updateValue(error);
             }.bind(this));
 
             callback();
@@ -100,7 +112,7 @@ Stoker.prototype.getState = function(callback) {
             this.log("Updating TemperatureSensor (" + sensorData.name + ") -> " + sensorData.tc);
             this.sensors[sensorData.name]
                 .getCharacteristic(Characteristic.CurrentTemperature)
-                .updateValue(this.fahrenheitToCelsius(sensorData.tc), null);
+                .updateValue(this.fahrenheitToCelsius(sensorData.tc));
             
             // update the target occupancy service to reflect the alarm state
             this.log("Updating OccupancySensor (" + sensorData.name + ") -> " + (sensorData.al != 0));
