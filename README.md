@@ -4,8 +4,15 @@
 
 A plugin for Homebridge to bring the [Stoker BBQ
 Controller](https://rocksbarbque.com) into HomeKit. Each temperature sensor will
-get its own Temperature Sensor and Occupancy Sensor (for reaching target temp),
-and a Occupancy Sensor will be created for each blower.
+get its own Thermostat sensor, which includes the current temperature of the
+sensor, along with the target temperature. The target temperature can be
+updated/controlled via HomeKit and Siri. An Occupancy Sensor will be created for 
+each blower to indicate its status, and for each temperature sensor to indicate
+whether or not it has reached its target temperature.
+
+While Apple's Home app isn't terrible, its not nearly as pleasurable to use for
+a Stoker with this plugin as Elgato Eve's app is. Its free, and I recommend you
+get it to use with this plugin!
 
 ## Installation
 
@@ -30,7 +37,7 @@ Variable | Description
 `stoker_address` | The hostname / IP address of your Stoker.
 `polling_interval` | How many seconds between polling the Stoker for updates.
 `sensors` | A list of objects with a "name" property, one for each temp sensor.
-`sensors` | A list of objects with a "name" property, one for each blower.
+`blowers` | A list of objects with a "name" property, one for each blower.
 
 Typical config example:
 ```json
