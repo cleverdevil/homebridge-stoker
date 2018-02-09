@@ -200,7 +200,7 @@ Stoker.prototype.getState = function(callback) {
             // alerts
             this.targets[sensorData.name]
                 .getCharacteristic(Characteristic.OccupancyDetected)
-                .updateValue(sensorData.tc <= sensorData.ta);
+                .updateValue(sensorData.tc >= sensorData.ta);
         }.bind(this));
         
         // loop through the blowers
